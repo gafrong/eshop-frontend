@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 
+import { Button, SearchBar } from '@rneui/themed';
+
 import ProductList from './ProductList';
 
 const data = require('../../assets/data/products.json');
@@ -19,7 +21,10 @@ const ProductContainer = () => {
     
     return (
         <View>
-            <Text>Product Container</Text>
+            <SearchBar 
+                placeholder='Search'
+                // onFocus={}
+            />
             <View style={{ marginTop: 100 }}>
             <FlatList 
                 numColumns={2}

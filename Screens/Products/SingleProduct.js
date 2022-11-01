@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, StyleSheet, Text, ScrollView } from 'react-native';
-import { Button, Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
+import { Image, View, StyleSheet, Text, ScrollView, Button } from 'react-native';
+import { Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
+
+//redux
+import { connect } from 'react-redux';
+import * as actions from '../../Redux/Actions/cartActions';
 
 const SingleProduct = (props) => {
-
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
+
+    const { name, price, image, countInStock } = props;
 
     return (
         <Card style={styles.container}>
@@ -31,10 +36,24 @@ const SingleProduct = (props) => {
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <Text style={styles.price}>${item.price}</Text>
-                <Button mode="outlined">Add</Button>
+                <Button 
+                    title={'Add'} 
+                    color={'green'} 
+                    onPress={()=>{
+                        props.addItemToCart(item)
+                    }}
+                />
             </View>
         </Card>
     )
+}
+
+// dispatch our actions to the state container
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addItemToCart: (product) =>
+            dispatch(actions.addToCart({quantity: 1, product}))
+    }
 }
 
 const styles = StyleSheet.create({
@@ -74,5 +93,4 @@ const styles = StyleSheet.create({
     }
 })
 
-
-export default SingleProduct;
+export default connect(null, mapDispatchToProps)(SingleProduct);

@@ -1,6 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native-web";
-import { Card, ListItem, Text, Image } from "@rneui/base";
+import { View, StyleSheet, Dimensions } from "react-native";
+import { Card, List, Text, Image } from 'react-native-paper';
 
 var { width } = Dimensions.get('window');
 
@@ -11,18 +11,18 @@ const SearchedProduct = (props) => {
         <Card style={{ width: width }}>
             {productsFiltered.length > 0 ? (
                 productsFiltered.map((item) => (
-                    <ListItem
+                    <List
                         key={item._id.$oid}
                         avatar
                     >
-                        <Image
+                        <List.Image
                             source={{uri: item.image ?
                                 item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png" 
                             }}
                         />
                         <Text>{item.name}</Text>
                         <Text>{item.description}</Text>
-                    </ListItem>
+                    </List>
                 ))
             ) : (
                 <View style={styles.center}>

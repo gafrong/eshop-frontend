@@ -7,10 +7,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../Redux/Actions/cartActions';
 
 const SingleProduct = (props) => {
+    // receiving all the props from params and set it to item
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
-
-    const { name, price, image, countInStock } = props;
 
     return (
         <Card style={styles.container}>

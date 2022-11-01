@@ -109,6 +109,7 @@ const ProductContainer = (props) => {
                             {productsCtg.map((item) => {
                                 return(
                                     <ProductList
+                                        /* first thing to se for navigation */
                                         navigation={props.navigation}
                                         key={item._id.$oid}
                                         item={item}

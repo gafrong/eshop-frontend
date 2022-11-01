@@ -16,6 +16,7 @@ function MyStack() {
                     headerShown: false,
                 }}
             />
+            {/* third thing to set for navigation */}
             <Stack.Screen 
                 name='ProductDetail'
                 component={SingleProduct}

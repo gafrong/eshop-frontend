@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 // Navigators
 import Main from './Navigators/Main';
@@ -13,10 +14,12 @@ import ProductContainer from './Screens/Products/ProductContainer';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Header />
-      <Main />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Header />
+        <Main />
+      </NavigationContainer>
+    </PaperProvider>
 
   );
 }

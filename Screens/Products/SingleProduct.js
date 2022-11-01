@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, StyleSheet, Text, ScrollView, Button } from 'react-native';
+import { Image, View, StyleSheet, Text, ScrollView } from 'react-native';
+import { Button, Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
 
 const SingleProduct = (props) => {
 
@@ -7,26 +8,32 @@ const SingleProduct = (props) => {
     const [availability, setAvailability] = useState(null);
 
     return (
-        <View style={styles.container}>
+        <Card style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                <View>
-                    <Image 
-                        source={{
-                            uri: item.image ? 
-                            item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"
-                        }}
-                        resizeMode="contain"
-                        style={styles.image}
-                    />
-                    <Text style={styles.center}>
+                <Card.Cover 
+                    source={{
+                        uri: item.image ? 
+                        item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"
+                    }}
+                    resizeMode="contain"
+                    style={styles.image}
+                />
+                <Card.Content style={styles.contentContainer}>
+                    <Title>
                         {item.name}
-                    </Text>
-                    <Text style={styles.center}>
+                    </Title>
+                    <Text>{item.brand}</Text>
+                    <Paragraph>
                         {item.description}
-                    </Text>
-                </View>
+                    </Paragraph>
+                </Card.Content>
+                {/* Description, Rich Description and Availability */}
             </ScrollView>
-        </View>
+            <View style={styles.bottomContainer}>
+                <Text style={styles.price}>${item.price}</Text>
+                <Button mode="outlined">Add</Button>
+            </View>
+        </Card>
     )
 }
 
@@ -49,6 +56,21 @@ const styles = StyleSheet.create({
     },
     center: {
         textAlign: 'center'
+    },
+    contentContainer: {
+
+    },
+    bottomContainer: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        backgroundColor: 'white'
+    },
+    price: {
+        fontsize: 30,
+        margin: 20,
+        color: 'red'
     }
 })
 

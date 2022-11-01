@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { Card, List, Text, Image } from 'react-native-paper';
+import { Card, ListItem, Text, Image } from "@rneui/base";
+import { List } from "react-native-paper";
 
 var { width } = Dimensions.get('window');
 
@@ -8,10 +9,13 @@ const SearchedProduct = (props) => {
     const { productsFiltered} = props;
     return(
 
-        <Card style={{ width: width }}>
+        <View style={{ width: width }}>
             {productsFiltered.length > 0 ? (
                 productsFiltered.map((item) => (
-                    <List
+                    <ListItem
+                        onPress={() => {
+                            props.navigation.navigate("ProductDetail", {item: item})
+                        }}
                         key={item._id.$oid}
                         avatar
                     >
@@ -22,7 +26,7 @@ const SearchedProduct = (props) => {
                         />
                         <Text>{item.name}</Text>
                         <Text>{item.description}</Text>
-                    </List>
+                    </ListItem>
                 ))
             ) : (
                 <View style={styles.center}>
@@ -31,7 +35,7 @@ const SearchedProduct = (props) => {
                     </Text>
                 </View>
             )}
-        </Card>
+        </View>
 
     );
 };

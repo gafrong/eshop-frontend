@@ -86,6 +86,7 @@ const ProductContainer = (props) => {
 
             {focus == true ? (
                 <SearchedProduct
+                    navigation={props.navigation}
                     productsFiltered ={productsFiltered}
                 />
             ) : (

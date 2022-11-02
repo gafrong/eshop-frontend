@@ -46,10 +46,11 @@ const ShopCart = (props) => {
                     })}
                     <View style={styles.bottomContainer}>
                         <Text style={styles.price}>{total}원</Text>
+                        <Button title="Clear" />
+                        <Button title="Checkout" 
+                            onPress={()=> props.navigation.navigate('Checkout')} />
                     </View>
-                    <Button title="Clear" />
-                    <Button title="Checkout" 
-                        onPress={()=> props.navigation.navigate('Checkout')} />
+                    
                 </View>
             ): (
                 <View style={styles.emptyContainer}>
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         bottom: 0,
-        left: 0,
+        right: 0,
         backgroundColor: 'white',
         elevation: 20
     },

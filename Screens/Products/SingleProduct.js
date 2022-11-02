@@ -38,6 +38,7 @@ const SingleProduct = (props) => {
                 <Button 
                     title={'Add'} 
                     color={'green'} 
+                    // press action trigger passing of item as props
                     onPress={()=>{
                         props.addItemToCart(item)
                     }}
@@ -92,4 +93,5 @@ const styles = StyleSheet.create({
     }
 })
 
+// connect dispatched action to the state container
 export default connect(null, mapDispatchToProps)(SingleProduct);

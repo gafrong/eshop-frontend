@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'flex-end',
       paddingRight: 25,
-      height: 70,
+      height: 67,
       width: width / 1.2
     }
 })

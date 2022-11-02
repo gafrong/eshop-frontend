@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Text, List } from 'react-native-paper';
+import { Text, List, Divider } from 'react-native-paper';
 
 
 const CartItem = (props) => {
@@ -24,18 +24,21 @@ const CartItem = (props) => {
                 description={data.price}
                 style={styles.body}
             />
+            <Divider/>
         </List.Section>
     )
 }
 
 const styles = StyleSheet.create({
     listItem: {
+        padding: 5,
         alignItems: 'center',
         backgroundColor: 'white',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: -18
     },
     body: {
-        margin: 10,
+        paddingLeft: 5,
         alignItems: 'center',
         flexDirection: 'row'
     }

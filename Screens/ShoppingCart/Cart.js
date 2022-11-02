@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { List } from 'react-native-paper';
+import { List, Divider } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,6 +12,12 @@ import * as actions from '../../Redux/Actions/cartActions';
 var { height, width } = Dimensions.get("window");
 
 const ShopCart = (props) => {
+    var total = 0;
+    // calculate the total of all products in the cart
+    props.cartItems.forEach(cart => {
+        return (total += cart.product.price)
+    });
+
     return (
         // using react fragment acting as a view without occupying a node to encapsulate some code
         <>
@@ -34,9 +40,16 @@ const ShopCart = (props) => {
                                     title={data.product.name}
                                     description={data.product.price}
                                 />
+                                <Divider/>
                             </List.Section>
                         )
                     })}
+                    <View style={styles.bottomContainer}>
+                        <Text style={styles.price}>{total}원</Text>
+                    </View>
+                    <Button title="Clear" />
+                    <Button title="Checkout" 
+                        onPress={()=> props.navigation.navigate('Checkout')} />
                 </View>
             ): (
                 <View style={styles.emptyContainer}>

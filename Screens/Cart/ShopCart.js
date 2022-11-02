@@ -24,7 +24,7 @@ const ShopCart = (props) => {
         // using react fragment acting as a view without occupying a node to encapsulate some code
         <>
             {props.cartItems.length ? (
-                <View>
+                <View style={styles.emptyContainer}>
                     <Text>Your Cart</Text>
                     <SwipeListView
                         data={props.cartItems}
@@ -98,10 +98,11 @@ const styles = StyleSheet.create({
     bottomContainer: {
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 0,
-        right: 0,
+        bottom: 140,
+        left: 0,
         backgroundColor: 'white',
-        elevation: 20
+        elevation: 20,
+        width: width
     },
     price: {
         fontSize: 18,

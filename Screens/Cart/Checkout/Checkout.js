@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import FormContainer from '../../../Shared/Form/FormContainer';
 import Input from '../../../Shared/Form/Input';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import SelectList from 'react-native-dropdown-select-list'
 
 import { connect } from 'react-redux';
 
@@ -19,6 +20,7 @@ const Checkout = (props) => {
     const [ zip, setZip ] = useState();
     const [ country, setCountry ] = useState();
     const [ phone, setPhone ] = useState();
+    const [ selected, setSelected ] = useState("");
 
     useEffect(() => {
         setOrderItems(props.cartItems)
@@ -37,9 +39,17 @@ const Checkout = (props) => {
             shippingAddress1: address,
             shippingAddress2: address2,
             zip,
+            country
         }
-        // passing order object as parameter to Payment
+        // passing order object as parameter to Payment screen
         props.navigation.navigate("Payment", {order: order})
+
+        console.log(order);
+    }
+
+    // function to find the object in an array using key value
+    function selectedItem(e) {
+        return e.key === selected;
     }
 
     return (
@@ -80,6 +90,15 @@ const Checkout = (props) => {
                     value={zip}
                     keyboardType={"numeric"}
                     onChangeText={(text)=> setZip(text)}
+                />
+                <SelectList
+                    setSelected={setSelected}
+                    data={countries}
+                    dropdownStyles={{backgroundCoor:"orange"}}
+                    onSelect={()=> 
+                        // using selectedItem function set above
+                        setCountry(countries.find(selectedItem).value)
+                    }
                 />
                 <View style={{widht:'80%', alignItems:"center"}}>
                     <Button title="Confirm" 

@@ -43,8 +43,6 @@ const Checkout = (props) => {
         }
         // passing order object as parameter to Payment screen
         props.navigation.navigate("Payment", {order: order})
-
-        console.log(order);
     }
 
     // function to find the object in an array using key value

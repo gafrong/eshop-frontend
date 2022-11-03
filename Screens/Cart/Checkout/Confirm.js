@@ -20,20 +20,21 @@ const Confirm = (props) => {
 
     const orderProps = props.route.params;
     
-    console.log(orderProps)
     return(
         <ScrollView contentContainerStyle={StyleSheet.container}>
             <View style={styles.titleContainer}>
                 <Text style={{fontSize:20,fontWeight:"bold"}}>Confirm Order</Text>       
                 { orderProps ?
                     <View style={{borderWidth:1, borderColor:"orange"}}>
-                        <Text style={styles.title}>Shipping to:</Text>
+                        <Text style={styles.title}>배송지:</Text>
                         <View style={{ padding: 8}}>
-                            <Text>Adress: {orderProps.order.order.ScrollViewshippingAdress1}</Text>
-                            <Text>Adress2: {orderProps.order.order.shippingAdress2}</Text>
-                            <Text>City: {orderProps.order.order.city}</Text>
-                            <Text>Zip code: {orderProps.order.order.zip}</Text>
-                            <Text>Country: {orderProps.order.order.country}</Text>
+                            <Text>주소: {orderProps.order.order.shippingAddress1}</Text>
+                            <Text>상세주소: {orderProps.order.order.shippingAddress2}</Text>
+                            <Text>도시: {orderProps.order.order.city}</Text>
+                            <Text>우편번호: {orderProps.order.order.zip}</Text>
+                            <Text>국가: {orderProps.order.order.country}</Text>
+
+                            <Text>연락처: {orderProps.order.order.phone}</Text>
                         </View>
                         <Text style={styles.title}>Items:</Text>
                             {orderProps.order.order.orderItems.map((x)=>{

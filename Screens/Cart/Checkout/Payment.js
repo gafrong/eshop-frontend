@@ -22,7 +22,7 @@ function selectedItem(e) {
 const Payment = (props) => {
     // catch order data passed through params from Checkout
     const order = props.route.params;
-
+console.log(order)
     const [ selected, setSelected ] = useState();
     const [ card, setCard ] = useState();
     return(

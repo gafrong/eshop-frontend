@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { View, SafeAreaView } from 'react-native';
 import { CheckBox, Header, ListItem, Text, Button  } from '@rneui/themed';
-import SelectList from 'react-native-dropdown-select-list'
-import { List } from "react-native-paper";
 import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title";
 
 const methods = [

@@ -14,7 +14,8 @@ const Confirm = (props) => {
         setTimeout(() => {
             props.clearCart();
             //use the StackScreen name ShopCart in CartNavigator to navigate
-            props.navigation.navigate("ShopCart")
+            props.navigation.navigate("CompleteMessage");
+            console.log(props.order)
         }, 500);
     }
 
@@ -23,44 +24,51 @@ const Confirm = (props) => {
     return(
         <ScrollView contentContainerStyle={StyleSheet.container}>
             <View style={styles.titleContainer}>
-                <Text style={{fontSize:20,fontWeight:"bold"}}>Confirm Order</Text>       
-                { orderProps ?
-                    <View style={{borderWidth:1, borderColor:"orange"}}>
-                        <Text style={styles.title}>배송지:</Text>
-                        <View style={{ padding: 8}}>
-                            <Text>주소: {orderProps.order.order.shippingAddress1}</Text>
-                            <Text>상세주소: {orderProps.order.order.shippingAddress2}</Text>
-                            <Text>도시: {orderProps.order.order.city}</Text>
-                            <Text>우편번호: {orderProps.order.order.zip}</Text>
-                            <Text>국가: {orderProps.order.order.country}</Text>
+                     
+                { orderProps && typeof orderProps?.order?.order !== 'undefined' ?
+                    <View>
+                        <Text style={{fontSize:20,fontWeight:"bold"}}>Confirm Order</Text>  
+                        <View style={{borderWidth:1, borderColor:"orange"}}>
+                            <Text style={styles.title}>배송지:</Text>
+                            <View style={{ padding: 8}}>
+                                <Text>주소: {orderProps.order.order.shippingAddress1}</Text>
+                                <Text>상세주소: {orderProps.order.order.shippingAddress2}</Text>
+                                <Text>도시: {orderProps.order.order.city}</Text>
+                                <Text>우편번호: {orderProps.order.order.zip}</Text>
+                                <Text>국가: {orderProps.order.order.country}</Text>
 
-                            <Text>연락처: {orderProps.order.order.phone}</Text>
+                                <Text>연락처: {orderProps.order.order.phone}</Text>
+                            </View>
+                            <Text style={styles.title}>Items:</Text>
+                                {orderProps.order.order.orderItems.map((x)=>{
+                                    return(
+                                        <ListItem
+                                            bottomDivider
+                                            style={styles.listItem}
+                                            key={x.product.name}
+                                            avatar
+                                        >
+                                            <Avatar source={{uri: x.product.image}}/>
+                                            <ListItem.Content>
+                                                <ListItem.Title>{x.product.name}</ListItem.Title>
+                                            </ListItem.Content>
+                                            <ListItem.Subtitle>{x.product.price}원</ListItem.Subtitle>
+
+                                        </ListItem>
+                                    )
+                                })}
+                                
                         </View>
-                        <Text style={styles.title}>Items:</Text>
-                            {orderProps.order.order.orderItems.map((x)=>{
-                                return(
-                                    <ListItem
-                                        bottomDivider
-                                        style={styles.listItem}
-                                        key={x.product.name}
-                                        avatar
-                                    >
-                                        <Avatar source={{uri: x.product.image}}/>
-                                        <ListItem.Content>
-                                            <ListItem.Title>{x.product.name}</ListItem.Title>
-                                        </ListItem.Content>
-                                        <ListItem.Subtitle>{x.product.price}원</ListItem.Subtitle>
-
-                                    </ListItem>
-                                )
-                            })}
+                        <Button 
+                                title={'Place Order'} 
+                                onPress={()=>confirmOrder()}/>
+                    </View>    
+                : 
+                    <View>
+                        <Text>Shipping information is missing. Please start again.</Text>
                     </View>
-                : null }
-                <View style={{alignItems:'center', margin:20}}>
-                    <Button 
-                        title={'Place Order'} 
-                        onPress={()=>confirmOrder()}/>
-                </View> 
+                }
+
             </View>
         </ScrollView>
     )

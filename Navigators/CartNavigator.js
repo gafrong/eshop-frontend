@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import ShopCart from '../Screens/Cart/ShopCart';
 import CheckoutNavigator from "./CheckoutNavigator";
+import CompleteMessage from "../Screens/Cart/Checkout/CompleteMessage";
 
 const Stack = createStackNavigator()
 
@@ -21,6 +22,14 @@ function MyStack() {
                 component={CheckoutNavigator}
                 options={{
                     title: "Checkout",
+                }}
+            />
+            <Stack.Screen 
+                name='CompleteMessage'
+                component={CompleteMessage}
+                options={{
+                    title: "CompleteMessage",
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

@@ -11,12 +11,10 @@ import SearchedProduct from './SearchedProducts';
 import Banner from '../../Shared/Banner';
 import CategoryFilter from './CategoryFilter';
 
-var { height } = Dimensions.get('window');
-
-const data = require('../../assets/data/products.json');
-const productCategories = require('../../assets/data/categories.json');
-
 var { width, height } = Dimensions.get('window');
+
+// const data = require('../../assets/data/products.json');
+const productCategories = require('../../assets/data/categories.json');
 
 const ProductContainer = (props) => {
 
@@ -30,13 +28,11 @@ const ProductContainer = (props) => {
 
     useEffect(()=>{
         setFocus(false);
-        setCategories(productCategories);
         setActive(-1);
-        // get products from database
+        // Products from database
         axios
             .get(`${baseURL}products`)
             .then((res) => {
-                console.log('initial products data',res.data);
                 setProducts(res.data);
                 setProductsFiltered(res.data);
                 setProductsCtg(res.data);
@@ -44,6 +40,15 @@ const ProductContainer = (props) => {
             })
             .catch((error) => {
                 console.log(error.message)
+            })
+        // Categories from database
+        axios
+            .get(`${baseURL}categories`)
+            .then((res) => {
+                setCategories(res.data);
+            })
+            .catch((error) => {
+                alert(error.message)
             })
 
         return () => {
@@ -77,7 +82,7 @@ const ProductContainer = (props) => {
         ? [setProductsCtg(initialState), setActive(true)]
         : [
             setProductsCtg(
-                products.filter((i) => i.category._id === ctg),
+                products.filter((i) => i.category ? i.category._id === ctg : null),
                 setActive(true)
             ),
             ];

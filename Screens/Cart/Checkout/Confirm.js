@@ -15,7 +15,6 @@ const Confirm = (props) => {
             props.clearCart();
             //use the StackScreen name ShopCart in CartNavigator to navigate
             props.navigation.navigate("CompleteMessage");
-            console.log(props.order)
         }, 500);
     }
 

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, FlatList, Dimensions, ScrollView } from 'react-native';
 import { Input, Icon } from '@rneui/themed';
+import { useFocusEffect } from '@react-navigation/native';
 
 // import functions to access database
 import baseURL from '../../assets/common/baseUrl';
@@ -26,40 +27,48 @@ const ProductContainer = (props) => {
     const [ active, setActive ] = useState();
     const [ initialState, setInitialState ] = useState([]);
 
-    useEffect(()=>{
-        setFocus(false);
-        setActive(-1);
-        // Products from database
-        axios
-            .get(`${baseURL}products`)
-            .then((res) => {
-                setProducts(res.data);
-                setProductsFiltered(res.data);
-                setProductsCtg(res.data);
-                setInitialState(res.data);
-            })
-            .catch((error) => {
-                console.log(error.message)
-            })
-        // Categories from database
-        axios
-            .get(`${baseURL}categories`)
-            .then((res) => {
-                setCategories(res.data);
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
+    // react navigation when in focus a screen will use callback. useful when we have several products in the same navigation
+    useFocusEffect((
+        useCallback(
+            () => {
+                setFocus(false);
+                setActive(-1);
+                // Products from database
+                axios
+                    .get(`${baseURL}products`)
+                    .then((res) => {
+                        setProducts(res.data);
+                        setProductsFiltered(res.data);
+                        setProductsCtg(res.data);
+                        setInitialState(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error.message)
+                    })
+                // Categories from database
+                axios
+                    .get(`${baseURL}categories`)
+                    .then((res) => {
+                        setCategories(res.data);
+                    })
+                    .catch((error) => {
+                        alert(error.message)
+                    })
+        
+                return () => {
+                    setProducts([])
+                    setProductsFiltered([])
+                    setFocus()
+                    setCategories([])
+                    setActive()
+                    setInitialState()
+                }
+            },
+            [],
+        )
+    ))
 
-        return () => {
-            setProducts([])
-            setProductsFiltered([])
-            setFocus()
-            setCategories([])
-            setActive()
-            setInitialState()
-        }
-    }, [])
+
 
     const searchProduct = (text) => {
         setProductsFiltered(

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { Text, List, Divider } from 'react-native-paper';
 
+var { height } = Dimensions.get('window');
 
 const CartItem = (props) => {
     const data = props.item.item.product

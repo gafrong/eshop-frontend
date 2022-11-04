@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         height: height,
         alignItems: "center",
         justifyContent: "center",
+        height: "100%"
     },
     bottomContainer: {
         flexDirection: 'row',

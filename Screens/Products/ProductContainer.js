@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, FlatList, Dimensions, ScrollView } from 'react-native';
 import { Input, Icon } from '@rneui/themed';
 
+// import functions to access database
+import baseURL from '../../assets/common/baseUrl';
+import axios from 'axios';
+
 import ProductList from './ProductList';
 import SearchedProduct from './SearchedProducts';
 import Banner from '../../Shared/Banner';
@@ -12,7 +16,7 @@ var { height } = Dimensions.get('window');
 const data = require('../../assets/data/products.json');
 const productCategories = require('../../assets/data/categories.json');
 
-var { width } = Dimensions.get('window');
+var { width, height } = Dimensions.get('window');
 
 const ProductContainer = (props) => {
 
@@ -25,13 +29,22 @@ const ProductContainer = (props) => {
     const [ initialState, setInitialState ] = useState([]);
 
     useEffect(()=>{
-        setProducts(data);
-        setProductsFiltered(data);
         setFocus(false);
         setCategories(productCategories);
-        setProductsCtg(data);
         setActive(-1);
-        setInitialState(data);
+        // get products from database
+        axios
+            .get(`${baseURL}products`)
+            .then((res) => {
+                console.log('initial products data',res.data);
+                setProducts(res.data);
+                setProductsFiltered(res.data);
+                setProductsCtg(res.data);
+                setInitialState(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
 
         return () => {
             setProducts([])
@@ -137,7 +150,7 @@ const styles = StyleSheet.create({
       backgroundColor: "gainsboro",
     },
     listContainer: {
-      height: height,
+      height: "100%",
       flex: 1,
       flexDirection: "row",
       alignItems: "flex-start",

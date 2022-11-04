@@ -26,8 +26,9 @@ const ProductContainer = (props) => {
     const [ productsCtg, setProductsCtg ] = useState([]);
     const [ active, setActive ] = useState();
     const [ initialState, setInitialState ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
 
-    // react navigation when in focus a screen will use callback. useful when we have several products in the same navigation
+    // react navigation when in focus a screen will use callback. useful when we have several products in the same navigation, so that when we come back, there will be a callback for data changes
     useFocusEffect((
         useCallback(
             () => {
@@ -41,9 +42,10 @@ const ProductContainer = (props) => {
                         setProductsFiltered(res.data);
                         setProductsCtg(res.data);
                         setInitialState(res.data);
+                        setLoading(false);
                     })
                     .catch((error) => {
-                        console.log(error.message)
+                        console.log('error msg',error.message)
                     })
                 // Categories from database
                 axios
@@ -99,62 +101,69 @@ const ProductContainer = (props) => {
     };
 
     return (
-        <View>
-            <View style={{width:width}}>
-                <Input 
-                    placeholder='Search'
-                    onFocus={openList}
-                    onChangeText={(text) => searchProduct(text)}
-                />
+        <>
+        {loading == false ? (
+            <View>
+                <View style={{width:width}}>
+                    <Input 
+                        placeholder='Search'
+                        onFocus={openList}
+                        onChangeText={(text) => searchProduct(text)}
+                    />
+                    {focus == true ? (
+                        <Icon onPress={onBlur} name="clear"/>
+                    ): null}
+                </View>
+
                 {focus == true ? (
-                    <Icon onPress={onBlur} name="clear"/>
-                ): null}
+                    <SearchedProduct
+                        navigation={props.navigation}
+                        productsFiltered ={productsFiltered}
+                    />
+                ) : (
+                    <ScrollView>
+                        <View>
+                            <Banner/>
+                        </View>
+            
+                        <View>
+                            <CategoryFilter
+                                categories={categories}
+                                categoryFilter={changeCtg}
+                                productsCtg={productsCtg}
+                                active={active}
+                                setActive={setActive}
+                            />
+                        </View>
+                        {productsCtg.length > 0 ? (
+                            <View style={styles.listContainer}>
+                                {productsCtg.map((item) => {
+                                    return(
+                                        <ProductList
+                                            /* first thing to se for navigation */
+                                            navigation={props.navigation}
+                                            key={item._id.$oid}
+                                            item={item}
+                                        />
+                                    )
+                                })}
+                            </View>
+                        ) : (
+                            <View style={[styles.center, {height: height / 2}]}>
+                                <Text>No products found</Text>
+                            </View>
+                        )}
+
+                    </ScrollView>
+                )}
             </View>
-
-            {focus == true ? (
-                <SearchedProduct
-                    navigation={props.navigation}
-                    productsFiltered ={productsFiltered}
-                />
-            ) : (
-                <ScrollView>
-                    <View>
-                        <Banner/>
-                    </View>
-        
-                    <View>
-                        <CategoryFilter
-                            categories={categories}
-                            categoryFilter={changeCtg}
-                            productsCtg={productsCtg}
-                            active={active}
-                            setActive={setActive}
-                        />
-                    </View>
-                    {productsCtg.length > 0 ? (
-                        <View style={styles.listContainer}>
-                            {productsCtg.map((item) => {
-                                return(
-                                    <ProductList
-                                        /* first thing to se for navigation */
-                                        navigation={props.navigation}
-                                        key={item._id.$oid}
-                                        item={item}
-                                    />
-                                )
-                            })}
-                        </View>
-                    ) : (
-                        <View style={[styles.center, {height: height / 2}]}>
-                            <Text>No products found</Text>
-                        </View>
-                    )}
-
-                </ScrollView>
-            )}
-
-
-        </View>
+        ) : (
+            // Loading
+            <View>
+                <ActivityIndicator size="large" color="red" />
+            </View>
+        )}    
+        </>
     )
 }
 

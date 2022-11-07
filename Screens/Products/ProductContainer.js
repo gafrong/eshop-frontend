@@ -45,7 +45,7 @@ const ProductContainer = (props) => {
                         setLoading(false);
                     })
                     .catch((error) => {
-                        console.log('error msg',error.message)
+                        console.log('Server error msg',error.message)
                     })
                 // Categories from database
                 axios

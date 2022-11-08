@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const Register = (props) => {
+const Register = () => {
     return(
         <View>
             <Text>Register Screen</Text>

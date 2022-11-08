@@ -7,6 +7,14 @@ const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleSubmit = () => {
+        const user = {
+            email,
+            password
+        }
+    }
+
     return(
         <FormContainer title={"Login"}>
             <Input

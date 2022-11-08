@@ -5,6 +5,9 @@ import Input from '../../Shared/Form/Input';
 import Error from '../../Shared/Error';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import axios from 'axios';
+import baseURL from '../../assets/common/baseUrl';
+
 const Register = (props) => {
 
     const [email, setEmail] = useState("")
@@ -17,6 +20,28 @@ const Register = (props) => {
         if (email === '' || name === '' || phone === '' || password === ''){
             setError("Please fill in the form")
         }
+
+        // collect the information on onchange method from the inputs
+        let user = {
+            name:name,
+            email:email,
+            password:password,
+            phone,phone,
+            isAdmin:false
+        }
+
+        axios
+            .post(`${baseURL}users/register`, user)
+            .then((res) => {
+                if(res.statue==200){
+                    setTimeout(()=> {
+                        props.navigation.navigate("Login");
+                    }, 500)
+                }
+            })
+            .catch((error) => {
+                
+            })
     }
 
     return(

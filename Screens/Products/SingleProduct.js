@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, ScrollView, Button } from 'react-native';
 import { Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 //redux
 import { connect } from 'react-redux';
@@ -39,8 +40,13 @@ const SingleProduct = (props) => {
                     title={'Add'} 
                     color={'green'} 
                     // press action trigger passing of item as props
-                    onPress={()=>{
-                        props.addItemToCart(item)
+                    onPress={()=>{props.addItemToCart(item),
+                        Toast.show({
+                            topOffset: 60,
+                            type: "success",
+                            text1: `${item.name} added to your cart`,
+                            text2: "Go to your cart to complete the order"
+                        })
                     }}
                 />
             </View>

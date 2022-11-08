@@ -6,9 +6,9 @@ import Error from '../../Shared/Error';
 
 const Login = (props) => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleSubmit = () => {
         const user = {
@@ -29,7 +29,7 @@ const Login = (props) => {
                 name={"email"}
                 id={"email"}
                 value={email}
-                onChangeText={(text) => setEmail(text.toLowerCase)}
+                onChangeText={(text) => setEmail(text.toLowerCase())}
             />
             <Input
                 placeholder={"Enter password"}

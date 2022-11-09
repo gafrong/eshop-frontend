@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, ScrollView, Button } from 'react-native';
 import { Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import BoutiqButton from '../../Shared/StyledComponents/BoutiqButton';
 
 //redux
 import { connect } from 'react-redux';
@@ -36,9 +37,9 @@ const SingleProduct = (props) => {
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <Text style={styles.price}>${item.price}</Text>
-                <Button 
-                    title={'Add'} 
-                    color={'green'} 
+                <BoutiqButton 
+                    primary
+                    medium
                     // press action trigger passing of item as props
                     onPress={()=>{props.addItemToCart(item),
                         Toast.show({
@@ -48,7 +49,9 @@ const SingleProduct = (props) => {
                             text2: "Go to your cart to complete the order"
                         })
                     }}
-                />
+                >
+                    <Text style={{color:"white"}}>Add</Text>
+                </BoutiqButton>
             </View>
         </Card>
     )

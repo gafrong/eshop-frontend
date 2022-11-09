@@ -18,35 +18,36 @@ const BoutiqButton = styled.TouchableOpacity`
     ${(props) => 
         props.secondary && 
             css`
-                background: #62b1f6
+                background: #62b1f6;
             `
     }
 
     ${(props) => 
         props.danger && 
             css`
-                background: #f40105
+                background: #f40105;
+                color: #ffffff;
             `
     }
 
     ${(props) => 
         props.large &&
             css`
-                width: 135px
+                width: 135px;
             `
     }
 
     ${(props) => 
         props.medium &&
             css`
-                width: 100px
+                width: 100px;
             `
     }
 
     ${(props) => 
         props.small &&
             css`
-                width: 40px
+                width: 40px;
             `
     }
 `;

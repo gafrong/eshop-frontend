@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {View, StyleSheet, Text, Image, TouchableHighLight, TouchableOpacity, Dimensions, Button, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import BoutiqButton from "../../Shared/StyledComponents/BoutiqButton";
 
 var { width } = Dimensions.get("window");
 
@@ -29,15 +30,19 @@ const ListItem = (props) => {
                         >
                             <Icon name="close" size={20} />
                         </TouchableOpacity>
-                        <Button title="Edit"
+                        <BoutiqButton 
+                            medium 
+                            secondary
                             onPress={() => [
-                                props.navigation.navigate("ProductForm"),
+                                props.navigation.navigate("ProductForm", {item:props}),
                                 setModalVisible(false)
                             ]}
-                        />
-                        <Button title="Delete"
-                            // delete
-                        />
+                        >
+                            <Text style={styles.textStyle}>Edit</Text>
+                        </BoutiqButton>
+                        <BoutiqButton medium danger>
+                            <Text style={styles.textStyle}>Delete</Text>
+                        </BoutiqButton>
                     </View>
                 </View>
             </Modal>

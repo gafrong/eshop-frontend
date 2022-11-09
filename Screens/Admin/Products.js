@@ -1,12 +1,14 @@
 import React, {useState, useCallback} from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Dimensions, Button } from 'react-native';
-import { Header, ListItem, Input } from '@rneui/base';
+import { Header, Input } from '@rneui/base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
 
 import axios from 'axios';
 import baseURL from '../../assets/common/baseUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import ListItem from './ListItem';
 
 var { height, width } = Dimensions.get("window")
 
@@ -67,7 +69,11 @@ const Products = (props) => {
                 <FlatList 
                     data={productFilter}
                     renderItem={({item, index}) => (
-                        <Text>{item.name}</Text>
+                        <ListItem 
+                            {...item}
+                            navigation={props.navigation}
+                            index={index}
+                        />
                     )}
                     keyExtractor={(item) => item.id}
                 />

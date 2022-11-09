@@ -9,29 +9,21 @@ import Categories from '../Screens/Admin/Categories';
 const Stack = createStackNavigator();
 
 function MyStack() {
-    <Stack.Navigator>
-        <Stack.Screen 
-            name="Products"
-            component={Products}
-            options={{
-                title:"Products"
-            }}
-        />
-         <Stack.Screen 
-            name="Categories"
-            component={Categories}
-        />
-        <Stack.Screen 
-           name="Orders"
-           component={Orders}
-       />
-       <Stack.Screen 
-          name="ProductForm"
-          component={ProductForm}
-      />
-    </Stack.Navigator>
+    return (
+        <Stack.Navigator>
+            <Stack.Screen 
+                name="Products"
+                component={Products}
+                options={{
+                    title: "Products"
+                }}
+            />
+            <Stack.Screen name="Categories" component={Categories} />
+            <Stack.Screen name="Orders" component={Orders} />
+            <Stack.Screen name="ProductForm" component={ProductForm} />
+        </Stack.Navigator>
+    )
 }
-
 export default function AdminNavigator() {
     return <MyStack />
 }

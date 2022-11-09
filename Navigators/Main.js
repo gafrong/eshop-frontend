@@ -58,10 +58,10 @@ const Main = () => {
                     )
                 }}
            />
-           
+
            {context.stateUser.user.isAdmin == true ? (
             <Tab.Screen 
-                name="Admin"
+                name="AdminNavigator"
                 component={AdminNavigator}
                 options={{
                     tabBarIcon: ({color}) => (

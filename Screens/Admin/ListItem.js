@@ -1,14 +1,51 @@
-import React from "react";
-import {View, StyleSheet, Text, Image, TouchableHighLight, TouchableOpacity, Dimensions, Button} from 'react-native';
+import React, {useState} from "react";
+import {View, StyleSheet, Text, Image, TouchableHighLight, TouchableOpacity, Dimensions, Button, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var { width } = Dimensions.get("window");
 
 const ListItem = (props) => {
+
+    const [modalVisible, setModalVisible] = useState(false);
+
     return(
         <View>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(false)
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <TouchableOpacity
+                            underlayColor="#E8E8E8"
+                            onPress={() => {
+                                setModalVisible(false)
+                            }}
+                            style={{alignSelf:"flex-end", position:"absolute", top:5, right:10}}
+                        >
+                            <Icon name="close" size={20} />
+                        </TouchableOpacity>
+                        <Button title="Edit"
+                            onPress={() => [
+                                props.navigation.navigate("ProductForm"),
+                                setModalVisible(false)
+                            ]}
+                        />
+                        <Button title="Delete"
+                            // delete
+                        />
+                    </View>
+                </View>
+            </Modal>
             <TouchableOpacity
-                //onPres
+                onPress={() => {
+                    props.navigation.navigate("ProductDetail", {item:props})
+                }}
+                onLongPress={() => setModalVisible(true)}
                 style={[styles.container, {
                     backgroundColor: props.index % 2 == 0 ? "white" : "gainsboro"
                 }]}

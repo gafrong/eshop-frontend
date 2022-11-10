@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Dimensions, Button } from 'react-native';
 import { Header, Input } from '@rneui/base';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,6 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import baseURL from '../../assets/common/baseUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthGlobal from '../../Context/store/AuthGlobal';
 
 import ListItem from './ListItem';
 
@@ -41,6 +42,7 @@ const Products = (props) => {
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+    const context = useContext(AuthGlobal);
 
     useFocusEffect(
         useCallback(
@@ -52,8 +54,8 @@ const Products = (props) => {
                     })
                     .catch((error) => console.log(error))
 
-                axios
-                    .get(`${baseURL}products`)
+                    axios
+                    .get(`${baseURL}products/admin/${context.stateUser.user.userId}`)
                     .then((res) => {
                         setProductList(res.data);
                         setProductFilter(res.data);

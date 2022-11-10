@@ -46,7 +46,6 @@ const Register = (props) => {
                 }
             })
             .catch((error) => {
-                console.log(error);
                 Toast.show({
                     topOffset:60,
                     type:"error",

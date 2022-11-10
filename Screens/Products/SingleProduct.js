@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, ScrollView, Button } from 'react-native';
-import { Card, Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
+import { Title, Paragraph, List, Provider as PaperProvider} from 'react-native-paper';
+import { Card } from '@rneui/base'
 import Toast from 'react-native-toast-message';
 import BoutiqButton from '../../Shared/StyledComponents/BoutiqButton';
+import TrafficLight from '../../Shared/StyledComponents/TrafficLight';
 
 //redux
 import { connect } from 'react-redux';
@@ -12,11 +14,30 @@ const SingleProduct = (props) => {
     // receiving all the props from params and set it to item
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
+    const [availabilityText, setAvailabilityText] = useState("");
+
+    useEffect(() => {
+        if(props.route.params.item.countInStock == 0) {
+            setAvailability(<TrafficLight unavailable></TrafficLight>);
+            setAvailabilityText("Unavailable")
+        } else if (props.route.params.item.countInStock <= 5) {
+            setAvailability(<TrafficLight limited></TrafficLight>);
+            setAvailabilityText("Limited Stock Available")
+        } else {
+            setAvailability(<TrafficLight available></TrafficLight>);
+            setAvailabilityText("Available")
+        }
+
+        return () => {
+            setAvailability(null);
+            setAvailabilityText("");
+        }
+    }, [])
 
     return (
         <Card style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                <Card.Cover 
+                <Card.Image 
                     source={{
                         uri: item.image ? 
                         item.image : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png"
@@ -24,16 +45,23 @@ const SingleProduct = (props) => {
                     resizeMode="contain"
                     style={styles.image}
                 />
-                <Card.Content style={styles.contentContainer}>
-                    <Title>
+                <View style={styles.contentContainer}>
+                    <Card.Title>
                         {item.name}
-                    </Title>
+                    </Card.Title>
                     <Text>{item.brand}</Text>
-                    <Paragraph>
+                    <Text>
                         {item.description}
-                    </Paragraph>
-                </Card.Content>
-                {/* Description, Rich Description and Availability */}
+                    </Text>
+                </View>
+                <View style={styles.availabilityContainer}>
+                    <View style={styles.availability}>
+                        <Text style={{marginRight:10}}>
+                            Availability: {availabilityText}
+                        </Text>
+                        {availability}
+                    </View>
+                </View>
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <Text style={styles.price}>${item.price}</Text>
@@ -99,6 +127,14 @@ const styles = StyleSheet.create({
         fontsize: 30,
         margin: 20,
         color: 'red'
+    },
+    availabilityContainer: {
+        marginBottom: 20,
+        alignItems: "center"
+    },
+    availability: {
+        flexDirection: 'row',
+        marginBottom: 10,
     }
 })
 

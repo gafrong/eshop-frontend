@@ -40,7 +40,11 @@ const ListItem = (props) => {
                         >
                             <Text style={styles.textStyle}>Edit</Text>
                         </BoutiqButton>
-                        <BoutiqButton medium danger>
+                        <BoutiqButton 
+                            medium 
+                            danger
+                            onPress={() => [props.delete(props._id), setModalVisible(false)]}
+                        >
                             <Text style={styles.textStyle}>Delete</Text>
                         </BoutiqButton>
                     </View>

@@ -3,6 +3,7 @@ import { View, Text, FlatList, ActivityIndicator, StyleSheet, Dimensions, Button
 import { Header, Input } from '@rneui/base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
+import BoutiqButton from '../../Shared/StyledComponents/BoutiqButton';
 
 import axios from 'axios';
 import baseURL from '../../assets/common/baseUrl';
@@ -101,6 +102,32 @@ const Products = (props) => {
 
     return(
         <View style={styles.container}>
+            <View style={styles.buttonContainer}>
+                <BoutiqButton
+                    secondary
+                    medium
+                    onPress={() => props.navigation.navigate("Orders")}
+                >
+                    <Icon name="shopping-bag" size={18} color="white"/>
+                    <Text style={styles.buttonText}>Orders</Text>
+                </BoutiqButton>
+                <BoutiqButton
+                    secondary
+                    medium
+                    onPress={() => props.navigation.navigate("ProductForm")}
+                >
+                    <Icon name="plus" size={18} color="white"/>
+                    <Text style={styles.buttonText}>Products</Text>
+                </BoutiqButton>
+                <BoutiqButton
+                    secondary
+                    medium
+                    onPress={() => props.navigation.navigate("Categories")}
+                >
+                    <Icon name="plus" size={18} color="white"/>
+                    <Text style={styles.buttonText}>Categories</Text>
+                </BoutiqButton>
+            </View>
             <View> 
                 <Input  
                     leftIcon={
